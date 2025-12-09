@@ -176,11 +176,6 @@ export default function Home() {
       alt: 'Car Showcase'
     },
     {
-      id: 9,
-      image: '/media/cars/car2.2.png',
-      alt: 'Car Showcase'
-    },
-    {
       id: 10,
       image: '/media/cars/car3.png',
       alt: 'Car Showcase'
