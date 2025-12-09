@@ -78,6 +78,7 @@ const ClockIcon = () => (
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentCarSlide, setCurrentCarSlide] = useState(0)
   const [isVisible, setIsVisible] = useState({})
   const observerRef = useRef(null)
 
@@ -132,6 +133,120 @@ export default function Home() {
     { id: 3, name: 'HONGQI', price: '250,000', image: '/media/make/hongqi.png' },
   ]
 
+  // Car showcase slides data
+  const carShowcaseSlides = [
+    {
+      id: 1,
+      image: '/media/cars/creetaBackground.png',
+      alt: 'Hyundai Creta'
+    },
+    {
+      id: 2,
+      image: '/media/cars/car0.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 3,
+      image: '/media/cars/car0.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 4,
+      image: '/media/cars/car1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 5,
+      image: '/media/cars/car1.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 6,
+      image: '/media/cars/car1.2.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 7,
+      image: '/media/cars/car2.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 8,
+      image: '/media/cars/car2.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 9,
+      image: '/media/cars/car2.2.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 10,
+      image: '/media/cars/car3.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 11,
+      image: '/media/cars/car4.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 12,
+      image: '/media/cars/car4.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 13,
+      image: '/media/cars/car5.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 14,
+      image: '/media/cars/car6.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 15,
+      image: '/media/cars/car7.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 16,
+      image: '/media/cars/car7.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 17,
+      image: '/media/cars/car8.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 18,
+      image: '/media/cars/car8.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 19,
+      image: '/media/cars/car9.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 20,
+      image: '/media/cars/car9.1.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 21,
+      image: '/media/cars/car10.png',
+      alt: 'Car Showcase'
+    },
+    {
+      id: 22,
+      image: '/media/cars/car10.1.png',
+      alt: 'Car Showcase'
+    }
+  ]
+
   // Auto-rotate hero slides
   useEffect(() => {
     const interval = setInterval(() => {
@@ -139,6 +254,14 @@ export default function Home() {
     }, 5000)
     return () => clearInterval(interval)
   }, [heroSlides.length])
+
+  // Auto-rotate car showcase slides
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCarSlide((prev) => (prev + 1) % carShowcaseSlides.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [carShowcaseSlides.length])
 
   // Intersection Observer for scroll animations
   useEffect(() => {
@@ -232,14 +355,23 @@ export default function Home() {
             <button className={styles.carShowcaseButton}>استكشف المجموعة</button>
           </div>
           <div className={styles.carShowcaseImageWrapper}>
-            <Image
-              src="/media/cars/creetaBackground.png"
-              alt="Hyundai Creta"
-              width={800}
-              height={600}
-              className={styles.carShowcaseImage}
-              priority
-            />
+            <div className={styles.carShowcaseSlides}>
+              {carShowcaseSlides.map((slide, index) => (
+                <div
+                  key={slide.id}
+                  className={`${styles.carShowcaseSlide} ${index === currentCarSlide ? styles.active : ''}`}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt}
+                    width={800}
+                    height={600}
+                    className={styles.carShowcaseImage}
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
